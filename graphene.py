@@ -6,9 +6,15 @@ class model:
 	
 		pass
 		
-	def lattice(self):
+	def lattice(self, n1, n2):
 	
-		pass
+		self.R = np.zeros(((2*n1 + 1)*(2*n2 + 1),2))
+		
+		for i in range(-n1, n1):
+			for j in range(-n2, n2):
+			
+				self.R[k] = sum() 
+			
 		
 	def reciprocal(self):
 	
@@ -33,6 +39,15 @@ class graphene_model:
 		self.basis = [0, self.d1, self.d2, self.d3]
 		
 		self.KK = lambda i,j: i*self.a_1 + j*self.a_2 
+		
+	def reciprocal_vectors(self):
+	
+		self.A = np.array([self.a_1, self.a_2])
+		
+		self.B = 2*np.pi*np.linalg.inv(self.A)
+		
+		self.b_1, self.b_2 = self.B.transpose()
+ 
 
 	def lattice(self, n):
 
