@@ -1,34 +1,44 @@
 from graphene import graphene_model
 import plotly.graph_objects as go
+import numpy as np
+
+p = 1
 
 # load dataset
 graphene = graphene_model()
 E, kx, ky = graphene.energy()	
 
+K = (2*np.pi/3, (2*np.pi)/(3*np.sqrt(3)))
+KP = (2*np.pi/3, -(2*np.pi)/(3*np.sqrt(3)))
+			
+x = [K[0], 0, -K[0], -KP[0], 0, KP[0], K[0]]  
+y = [K[1], 2*K[1], K[1], KP[1], 2*KP[1], KP[1], K[1]]
+
 # Create figure
 fig = go.Figure()
 
 # Add surface trace
-fig.add_trace(go.Surface(z=E(1), colorscale="Viridis"))
+fig.add_trace(go.Surface(z=E(1), colorscale="Viridis", showscale=False))
+#fig.add_trace(go.Surface(z=E(-1), colorscale="Viridis", showscale=False))
 
 # Update plot sizing
 fig.update_layout(
-    width=800,
-    height=900,
+    width=p*800,
+    height=p*900,
     autosize=False,
-    margin=dict(t=100, b=0, l=0, r=0),
+    margin=dict(t=p*100, b=0, l=0, r=0),
 )
 
 # Update 3D scene options
 fig.update_scenes(
-    aspectratio=dict(x=1, y=1, z=0.7),
+    aspectratio=dict(x=p*1, y=p*1, z=p*0.7),
     aspectmode="manual"
 )
 
 # Add drowdowns
 # button_layer_1_height = 1.08
-button_layer_1_height = 1.12
-button_layer_2_height = 1.065
+button_layer_1_height = p*1.12
+button_layer_2_height = p*1.065
 
 fig.update_layout(
     updatemenus=[
@@ -47,9 +57,9 @@ fig.update_layout(
                     method="restyle"
                 )
             ]),
-            pad={"r": 10, "t": 10},
+            pad={"r": p*10, "t": p*10},
             showactive=True,
-            x=0.55,
+            x=p*0.55,
             xanchor="left",
             y=button_layer_1_height,
             yanchor="top"
@@ -58,7 +68,7 @@ fig.update_layout(
             buttons=list([
                 dict(
                     args=["colorscale", "Viridis"],
-                    label="Viridis",
+                    label="Viridis", #π
                     method="restyle"
                 ),
                 dict(
@@ -79,9 +89,9 @@ fig.update_layout(
             ]),
             type = "buttons",
             direction="right",
-            pad={"r": 10, "t": 10},
+            pad={"r": p*10, "t": p*10},
             showactive=True,
-            x=0.1,
+            x=p*0.1,
             xanchor="left",
             y=button_layer_1_height,
             yanchor="top"
@@ -101,9 +111,9 @@ fig.update_layout(
             ]),
             type = "buttons",
             direction="right",
-            pad={"r": 10, "t": 10},
+            pad={"r": p*10, "t": p*10},
             showactive=True,
-            x=0.13,
+            x=p*0.13,
             xanchor="left",
             y=button_layer_2_height,
             yanchor="top"
@@ -123,9 +133,9 @@ fig.update_layout(
             ]),
             type = "buttons",
             direction="right",
-            pad={"r": 10, "t": 10},
+            pad={"r": p*10, "t": p*10},
             showactive=True,
-            x=0.5,
+            x=p*0.5,
             xanchor="left",
             y=button_layer_2_height,
             yanchor="top"
@@ -133,15 +143,18 @@ fig.update_layout(
     ]
 )
 
-fig.update_layout(
+fig.update_layout( #title={
+        #'text': "Band structure of graphene",
+        #'y':0,
+        #'x':0}, 
     annotations=[
     	dict(text="Trace type:", showarrow=False,
-                             x=0.5, xref="paper", y=1.1, yref="paper"),
-        dict(text="Colorscale:", x=0, xref="paper", y=1.1, yref="paper",
+                             x=p*0.5, xref="paper", y=p*1.1, yref="paper"),
+        dict(text="Colorscale:", x=p*0, xref="paper", y=p*1.1, yref="paper",
                              align="left", showarrow=False),
-        dict(text="Reverse<br>Colorscale:", x=0, xref="paper", y=1.06,
+        dict(text="Reverse<br>Colorscale:", x=p*0, xref="paper", y=p*1.06,
                              yref="paper", showarrow=False),
-        dict(text="Lines:", x=0.47, xref="paper", y=1.045, yref="paper",
+        dict(text="Lines:", x=p*0.47, xref="paper", y=p*1.045, yref="paper",
                              showarrow=False)
     ])
 

@@ -95,6 +95,6 @@ class graphene_model:
 
 		f =  2*np.cos(np.sqrt(3)*KY*self.a) + (4*np.cos((np.sqrt(3)/2)*KY*self.a)*np.cos((3/2)*KX*self.a))
 
-		E = lambda x: x*2.7*np.sqrt(3 + f) + 0.2*(2.7)*f
+		E = lambda x, t: x*t*np.sqrt(3 + f) - 0.2*t*f
 		
 		return E, kx, ky
